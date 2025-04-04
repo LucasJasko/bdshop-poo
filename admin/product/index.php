@@ -4,7 +4,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/function.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
-require_once $_SERVER["DOCUMENT_ROOT"] . "/php/Product.class.php";
+// require_once $_SERVER["DOCUMENT_ROOT"] . "/php/Product.class.php";
 
 // ///////////////////////////// RECUPERATION PAGES ///////////////////////////////////////////////////////////
 

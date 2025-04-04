@@ -198,10 +198,9 @@ function createIMG($filename, $extension)
     }
 }
 
-// spl_autoload_register("loadClass");
+spl_autoload_register("loadClass");
 
-// function loadClass($class)
-// {
-//     var_dump($class);
-//     exit();
-// }
+function loadClass($class)
+{
+    require_once $_SERVER["DOCUMENT_ROOT"] . "/php/" . $class . ".class.php";
+}

@@ -26,9 +26,6 @@ class Product
 
   public function hydrate($data)
   {
-    $this->setPrice($data["product_price"]);
-    $this->setName($data["product_name"]);
-
     foreach ($data as $key => $value) {
       $method = "set" . ucfirst(str_replace("product_", "", $key));
       if (method_exists($this, $method)) {
