@@ -4,6 +4,7 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/function.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/protect.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/admin/include/connect.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/php/Product.class.php";
 
 // ///////////////////////////// RECUPERATION PAGES ///////////////////////////////////////////////////////////
 
@@ -28,23 +29,23 @@ if ($rowTotal = $stmt->fetch()) {
 
 $sql = "SELECT * FROM table_product WHERE (1=1)";
 
-$bind = [];
+$bind    = [];
 $keyword = "";
 if (isset($_COOKIE["search_keyword"])) {
   $keyword = $_COOKIE["search_keyword"];
 }
 
-if (!empty($keyword)) {
-  $sql .= " AND product_name LIKE :keyword COLLATE utf8mb3_general_ci 
+if (! empty($keyword)) {
+  $sql .= " AND product_name LIKE :keyword COLLATE utf8mb3_general_ci
             OR product_serie LIKE :keyword2 COLLATE utf8mb3_general_ci";
-  $bind["keyword"] = "%" . $keyword . "%";
+  $bind["keyword"]  = "%" . $keyword . "%";
   $bind["keyword2"] = "%" . $keyword . "%";
 }
 
 $sql .= " ORDER BY product_id ASC LIMIT :offset, :limit";
 $stmt = $db->prepare($sql);
 
-if (!empty($keyword)) {
+if (! empty($keyword)) {
   foreach ($bind as $key => $value) {
     $stmt->bindValue($key, $value);
   }
@@ -58,7 +59,6 @@ $stmt->execute();
 
 $recordset = $stmt->fetchAll();
 // recordset contient maintenant un tableau indexé de tableau associatif
-
 
 ?>
 
@@ -75,7 +75,7 @@ $recordset = $stmt->fetchAll();
   <h1>Liste des produits</h1>
 
   <form action="search.php" method="post" class="search">
-    <input type="search" name="keyword" value="<?= hsc($keyword) ?>">
+    <input type="search" name="keyword" value="<?php echo hsc($keyword) ?>">
     <input type="submit" value="Rechercher">
   </form>
   <a href="search.php?reset=1" class="button">Reset</a>
@@ -93,11 +93,13 @@ $recordset = $stmt->fetchAll();
 
     <!-- On affiche ici les informations récupéré de la base de données -->
     <?php
-    foreach ($recordset as $row) { ?>
+    foreach ($recordset as $row) {
+      $product = new Product($row);
+    ?>
       <tr>
-        <td> <?= hsc($row["product_id"]); ?> </td>
-        <td> <?= hsc($row["product_name"]); ?> </td>
-        <td> <?= hsc($row["product_serie"]); ?> </td>
+        <td> <?= $product->getId() ?> </td>
+        <td> <?= $product->getName() ?> </td>
+        <td> <?= $product->getSerie() ?> </td>
         <td> <?= hsc($row["product_image"]); ?> </td>
         <!-- Rappel: chemin relatif s'écrit sans "/", absolu commence par un "/" -->
         <td> <a href="form.php?id=<?= hsc($row['product_id']) ?>">Modif</a> </td>

@@ -132,7 +132,6 @@ function createIMG($filename, $extension)
                     $destWidth  = $srcWidth;
                     $destHeight = $srcHeight;
                 }
-
             } else {
                 $destWidth = round(($srcWidth * $destHeight) / $srcHeight);
 
@@ -159,7 +158,6 @@ function createIMG($filename, $extension)
                 $srcY      = round(($srcHeight - $srcWidth) / 2);
                 $srcHeight = $srcWidth;
             }
-
         }
 
         // On définit une toile vide qui ne contient pas de pixel
@@ -199,3 +197,11 @@ function createIMG($filename, $extension)
         }
     }
 }
+
+// spl_autoload_register("loadClass");
+
+// function loadClass($class)
+// {
+//     var_dump($class);
+//     exit();
+// }

@@ -52,8 +52,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"]) && $_GET["id"] != 0) {
     $product_date = $row["product_date"];
     $product_type_id = $row["product_type_id"];
   }
-}
-;
+};
 
 
 ?>
