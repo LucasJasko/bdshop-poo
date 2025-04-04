@@ -22,4 +22,9 @@ class Manager
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
+  public function selectFIlter(array $filterArray)
+  {
+    // L'objectif de cette méthode sera de gérer toutes les demandes possible de traitement sur la requête SQL
+  }
 }

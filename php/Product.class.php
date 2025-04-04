@@ -35,7 +35,7 @@ class Product
   }
 
   // Le principe de création d'un setter et d'un getter par attribut de l'objet s'appel l'encapsulation
-  public function setPrice(float $price)
+  public function setPrice(?float $price)
   {
     $this->price = ($price >= 0) ? $price : 0;
   }
